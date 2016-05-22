@@ -1,10 +1,7 @@
 /*
  * ListItem.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright (C) 2012 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +19,23 @@
 
 package com.codebutler.farebot.ui;
 
+import com.codebutler.farebot.util.Utils;
+
 public class ListItem {
     protected final String mText1;
     protected final String mText2;
+
+    public ListItem(int nameResource, int valueResource) {
+        this(nameResource, Utils.localizeString(valueResource));
+    }
+
+    public ListItem(String name, int valueResource) {
+        this(name, Utils.localizeString(valueResource));
+    }
+
+    public ListItem(int nameResource, String value) {
+        this(Utils.localizeString(nameResource), value);
+    }
 
     public ListItem(String name, String value) {
         mText1 = name;

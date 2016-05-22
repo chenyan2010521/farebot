@@ -1,3 +1,30 @@
+/*
+ * ClipperData.java
+ *
+ * Copyright 2011 "an anonymous contributor"
+ * Copyright 2011-2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2011 Chris Hundt <hundt@google.com>
+ * Copyright 2011 David Hoover <karma@deadmoose.com>
+ * Copyright 2011 Devin Carraway <git@devin.com>
+ * Copyright 2012 Jason Hsu <jashsu@gmail.com>
+ * Copyright 2012 Sebastian Oliva <tian2992@gmail.com>
+ * Copyright 2012 Shayan Guha <shayan@coliloquy.com>
+ * Copyright 2013 Mike Castleman <m@mlcastle.net>
+ * Copyright 2014 Bao-Long Nguyen-Trong <baolong@inkling.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.codebutler.farebot.transit.clipper;
 
 import com.codebutler.farebot.transit.Station;
@@ -42,7 +69,7 @@ final class ClipperData {
 
     static final Map<Long, Station> BART_STATIONS = new ImmutableMapBuilder<Long, Station>()
         .put(0x01L, new Station("Colma Station",                       "Colma",                "37.68468",  "-122.46626"))
-        .put(0x02L, new Station("Daly City Station",                   "Daly City",            "37.70608",  "-122.46908"))
+        .put(0x02L, new Station("Daly City Station", "Daly City", "37.70608", "-122.46908"))
         .put(0x03L, new Station("Balboa Park Station",                 "Balboa Park",          "37.721556", "-122.447503"))
         .put(0x04L, new Station("Glen Park Station",                   "Glen Park",            "37.733118", "-122.433808"))
         .put(0x05L, new Station("24th St. Mission Station",            "24th St.",             "37.75226",  "-122.41849"))
@@ -62,13 +89,13 @@ final class ClipperData {
         .put(0x17L, new Station("Ashby Station",                       "Ashby",                "37.85303",  "-122.269965"))
         .put(0x18L, new Station("Downtown Berkeley Station",           "Berkeley",             "37.869868", "-122.268051"))
         .put(0x19L, new Station("North Berkeley Station",              "North Berkeley",       "37.874026", "-122.283882"))
-        .put(0x20L, new Station("Coliseum/Oakland Airport BART",       "Coliseum/OAK",         "37.754270", "-122.197757"))
         .put(0x1aL, new Station("El Cerrito Plaza Station",            "El Cerrito Plaza",     "37.903959", "-122.299271"))
         .put(0x1bL, new Station("El Cerrito Del Norte Station",        "El Cerrito Del Norte", "37.925651", "-122.317219"))
         .put(0x1cL, new Station("Richmond Station",                    "Richmond",             "37.93730",  "-122.35338"))
         .put(0x1dL, new Station("Lake Merritt Station",                "Lake Merritt",         "37.79761",  "-122.26564"))
         .put(0x1eL, new Station("Fruitvale Station",                   "Fruitvale",            "37.77495",  "-122.22425"))
         .put(0x1fL, new Station("Coliseum/Oakland Airport Station",    "Coliseum/OAK",         "37.75256",  "-122.19806"))
+        .put(0x20L, new Station("Coliseum/Oakland Airport BART",       "Coliseum/OAK",         "37.754270", "-122.197757"))
         .put(0x22L, new Station("Hayward Station",                     "Hayward",              "37.670387", "-122.088002"))
         .put(0x23L, new Station("South Hayward Station",               "South Hayward",        "37.634800", "-122.057551"))
         .put(0x24L, new Station("Union City Station",                  "Union City",           "37.591203", "-122.017854"))

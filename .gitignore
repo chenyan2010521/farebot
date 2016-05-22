@@ -1,3 +1,4 @@
+*~
 build/
 out/
 dist/
@@ -11,8 +12,19 @@ local.properties
 *.iws
 projectFilesBackup/
 project.properties
+
 .gradle
-release.keystore
+gradlew
+gradlew.bat
+gradle/
+
+*.keystore
 com_crashlytics_export_strings.xml
 crashlytics-build.properties
 crashlytics.properties
+fabric.properties
+*.apk
+manifest-merger-release-report.txt
+*.zip
+*scan_*/
+*.py[co]

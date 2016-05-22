@@ -1,10 +1,8 @@
 /*
  * CardsFragment.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2012-2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2015-2016 Michael Farrell <micolous+git@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +30,11 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.ClipboardManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -63,13 +63,13 @@ import org.apache.commons.io.FileUtils;
 import org.simpleframework.xml.Serializer;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CardsFragment extends ListFragment {
+    private static final String TAG = "CardsFragment";
     private static final int REQUEST_SELECT_FILE = 1;
     private static final String SD_EXPORT_PATH = Environment.getExternalStorageDirectory() + "/FareBot-Export.xml";
 
@@ -150,8 +150,17 @@ public class CardsFragment extends ListFragment {
                Uri uri = Uri.fromFile(Environment.getExternalStorageDirectory());
                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                i.putExtra(Intent.EXTRA_STREAM, uri);
-               i.setType("application/xml");
-               startActivityForResult(Intent.createChooser(i, "Select File"), REQUEST_SELECT_FILE);
+               // Some files are text/xml, some are application/xml.
+               // In Android 4.4 and later, we can say the right thing!
+               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                   i.setType("*/*");
+                   String[] mimetypes = {"application/xml", "text/xml"};
+                   i.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+               } else {
+                   // Failsafe, used in the emulator for local files
+                   i.setType("text/xml");
+               }
+               startActivityForResult(Intent.createChooser(i, Utils.localizeString(R.string.select_file)), REQUEST_SELECT_FILE);
                return true;
 
            } else if (item.getItemId() == R.id.import_sd) {
@@ -163,7 +172,7 @@ public class CardsFragment extends ListFragment {
                @SuppressWarnings("deprecation")
                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
                clipboard.setText(ExportHelper.exportCardsXml(getActivity()));
-               Toast.makeText(getActivity(), "Copied to clipboard.", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getActivity(), R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
                return true;
 
            } else if (item.getItemId() == R.id.share_xml) {
@@ -177,7 +186,7 @@ public class CardsFragment extends ListFragment {
                String xml = ExportHelper.exportCardsXml(getActivity());
                File file = new File(SD_EXPORT_PATH);
                FileUtils.writeStringToFile(file, xml, "UTF-8");
-               Toast.makeText(getActivity(), "Wrote FareBot-Export.xml to USB Storage.", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getActivity(), R.string.saved_xml, Toast.LENGTH_SHORT).show();
                return true;
            }
        } catch (Exception ex) {
@@ -190,7 +199,9 @@ public class CardsFragment extends ListFragment {
         try {
             if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SELECT_FILE) {
                 Uri uri = data.getData();
-                String xml = org.apache.commons.io.FileUtils.readFileToString(new File(uri.getPath()));
+                Log.d(TAG, "REQUEST_SELECT_FILE content_type = " + getActivity().getContentResolver().getType(uri));
+                InputStream stream = getActivity().getContentResolver().openInputStream(uri);
+                String xml = org.apache.commons.io.IOUtils.toString(stream);
                 onCardsImported(ExportHelper.importCardsXml(getActivity(), xml));
             }
         } catch (Exception ex) {
@@ -200,11 +211,10 @@ public class CardsFragment extends ListFragment {
 
     private void onCardsImported(Uri[] uris) {
         ((CursorAdapter) ((ListView) getView().findViewById(android.R.id.list)).getAdapter()).notifyDataSetChanged();
+        Toast.makeText(getActivity(), Utils.localizePlural(R.plurals.cards_imported, uris.length, uris.length), Toast.LENGTH_SHORT).show();
+
         if (uris.length == 1) {
-            Toast.makeText(getActivity(), "Card imported!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Intent.ACTION_VIEW, uris[0]));
-        } else {
-            Toast.makeText(getActivity(), "Cards Imported: " + uris.length, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -243,10 +253,9 @@ public class CardsFragment extends ListFragment {
                    // textView1.setText(identity.getName());
                    textView1.setText(String.format("%s: %s", identity.getName(), serial));
                }
-               DateFormat timeInstance = SimpleDateFormat.getTimeInstance(DateFormat.SHORT);
-               DateFormat dateInstance = SimpleDateFormat.getDateInstance(DateFormat.SHORT);
-               textView2.setText(getString(R.string.scanned_at_format, timeInstance.format(scannedAt),
-                       dateInstance.format(scannedAt)));
+               textView2.setText(getString(R.string.scanned_at_format, Utils.timeFormat(scannedAt),
+                       Utils.dateFormat(scannedAt)));
+
            } else {
                textView1.setText(getString(R.string.unknown_card));
                textView2.setText(String.format("%s - %s", CardType.values()[type].toString(), serial));

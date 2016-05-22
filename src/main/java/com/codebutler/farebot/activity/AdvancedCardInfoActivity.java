@@ -25,7 +25,6 @@ package com.codebutler.farebot.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -46,12 +45,8 @@ import com.codebutler.farebot.card.UnsupportedCardException;
 import com.codebutler.farebot.fragment.CardHWDetailFragment;
 import com.codebutler.farebot.ui.TabPagerAdapter;
 import com.codebutler.farebot.util.Utils;
-import com.crashlytics.android.Crashlytics;
 
 import org.simpleframework.xml.Serializer;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class AdvancedCardInfoActivity extends Activity {
     public static final String EXTRA_CARD  = "com.codebutler.farebot.EXTRA_CARD";
@@ -65,11 +60,14 @@ public class AdvancedCardInfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_card_info);
 
+        /*
         findViewById(R.id.error_button).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 reportError();
             }
         });
+
+*/
 
         Serializer serializer = FareBotApplication.getInstance().getSerializer();
         mCard = Card.fromXml(serializer, getIntent().getStringExtra(AdvancedCardInfoActivity.EXTRA_CARD));
@@ -82,9 +80,9 @@ public class AdvancedCardInfoActivity extends Activity {
         actionBar.setTitle(mCard.getCardType().toString() + " " + Utils.getHexString(mCard.getTagId(), "<error>"));
 
         if (mCard.getScannedAt().getTime() > 0) {
-            String date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(mCard.getScannedAt());
-            String time = new SimpleDateFormat("h:m a", Locale.US).format(mCard.getScannedAt());
-            actionBar.setSubtitle(String.format("Scanned on %s at %s.", date, time));
+            String date = Utils.dateFormat(mCard.getScannedAt());
+            String time = Utils.timeFormat(mCard.getScannedAt());
+            actionBar.setSubtitle(Utils.localizeString(R.string.scanned_at_format, time, date));
         }
 
         if (getIntent().hasExtra(EXTRA_ERROR)) {
@@ -157,10 +155,11 @@ public class AdvancedCardInfoActivity extends Activity {
     }
 
     private void reportError() {
+        /*
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override public void onClick(DialogInterface dialog, int which) {
                 try {
-                    Crashlytics.log(mCard.toXml(FareBotApplication.getInstance().getSerializer()));
+                    Crashlytics.log(mCard.toXml(FarebotApplication.getInstance().getSerializer()));
                 } catch (Exception ex) {
                     Crashlytics.logException(ex);
                 }
@@ -174,5 +173,6 @@ public class AdvancedCardInfoActivity extends Activity {
             .setPositiveButton(android.R.string.ok, listener)
             .setNegativeButton(android.R.string.cancel, null)
             .show();
+            */
     }
 }

@@ -1,10 +1,7 @@
 /*
  * CardRawDataActivity.java
  *
- * Copyright (C) 2011 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2011 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +34,12 @@ import com.codebutler.farebot.activity.AdvancedCardInfoActivity;
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.desfire.DesfireApplication;
 import com.codebutler.farebot.card.desfire.DesfireCard;
-import com.codebutler.farebot.card.desfire.DesfireFile;
-import com.codebutler.farebot.card.desfire.InvalidDesfireFile;
-import com.codebutler.farebot.card.desfire.RecordDesfireFileSettings;
-import com.codebutler.farebot.card.desfire.StandardDesfireFileSettings;
+import com.codebutler.farebot.card.desfire.files.DesfireFile;
+import com.codebutler.farebot.card.desfire.files.InvalidDesfireFile;
+import com.codebutler.farebot.card.desfire.settings.RecordDesfireFileSettings;
+import com.codebutler.farebot.card.desfire.settings.StandardDesfireFileSettings;
+import com.codebutler.farebot.card.desfire.files.UnauthorizedDesfireFile;
+import com.codebutler.farebot.card.desfire.settings.ValueDesfireFileSettings;
 import com.codebutler.farebot.util.Utils;
 
 import org.simpleframework.xml.Serializer;
@@ -121,6 +120,8 @@ public class DesfireCardRawDataFragment extends ExpandableListFragment {
 
                 if (file instanceof InvalidDesfireFile) {
                     textView2.setText(((InvalidDesfireFile) file).getErrorMessage());
+                } else if (file instanceof UnauthorizedDesfireFile) {
+                    textView2.setText(((UnauthorizedDesfireFile) file).getErrorMessage());
                 } else {
                     if (file.getFileSettings() instanceof StandardDesfireFileSettings) {
                         StandardDesfireFileSettings fileSettings = (StandardDesfireFileSettings) file.getFileSettings();
@@ -133,6 +134,16 @@ public class DesfireCardRawDataFragment extends ExpandableListFragment {
                                 String.valueOf(fileSettings.getCurRecords()),
                                 String.valueOf(fileSettings.getMaxRecords()),
                                 String.valueOf(fileSettings.getRecordSize())));
+                    } else if (file.getFileSettings() instanceof ValueDesfireFileSettings) {
+                        ValueDesfireFileSettings fileSettings = (ValueDesfireFileSettings) file.getFileSettings();
+
+                        textView2.setText(String.format("Type: %s, Range: %s - %s, Limited Credit: %s (%s)",
+                                fileSettings.getFileTypeName(),
+                                fileSettings.getLowerLimit(),
+                                fileSettings.getUpperLimit(),
+                                fileSettings.getLimitedCreditValue(),
+                                fileSettings.getLimitedCreditEnabled() ? "enabled" : "disabled"
+                        ));
                     } else {
                         textView2.setText("Unknown file type");
                     }

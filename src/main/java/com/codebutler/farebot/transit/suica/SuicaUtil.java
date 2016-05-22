@@ -1,3 +1,31 @@
+/*
+ * SuicaTransitData.java
+ *
+ * Based on code from http://code.google.com/p/nfc-felica/
+ * nfc-felica by Kazzz. See project URL for complete author information.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Thanks to these resources for providing additional information about the Suica format:
+ * http://www.denno.net/SFCardFan/
+ * http://jennychan.web.fc2.com/format/suica.html
+ * http://d.hatena.ne.jp/baroqueworksdev/20110206/1297001722
+ * http://handasse.blogspot.com/2008/04/python-pasorisuica.html
+ * http://sourceforge.jp/projects/felicalib/wiki/suica
+ *
+ * Some of these resources have been translated into English at:
+ * https://github.com/micolous/farebot/wiki/Suica
+ */
 package com.codebutler.farebot.transit.suica;
 
 import android.app.Application;
@@ -7,6 +35,7 @@ import android.util.Log;
 
 import com.codebutler.farebot.FareBotApplication;
 import com.codebutler.farebot.R;
+
 import com.codebutler.farebot.transit.Station;
 
 import net.kazzz.felica.lib.Util;
@@ -15,22 +44,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMNS_IRUCA_STATIONCODE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMNS_STATIONCODE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_AREACODE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_COMPANYNAME;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_COMPANYNAME_EN;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_ID;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_LATITUDE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_LINECODE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_LINENAME;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_LINENAME_EN;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_LONGITUDE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_STATIONCODE;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_STATIONNAME;
-import static com.codebutler.farebot.card.felica.DBUtil.COLUMN_STATIONNAME_EN;
-import static com.codebutler.farebot.card.felica.DBUtil.TABLE_IRUCA_STATIONCODE;
-import static com.codebutler.farebot.card.felica.DBUtil.TABLE_STATIONCODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMNS_IRUCA_STATIONCODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMNS_STATIONCODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_AREACODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_COMPANYNAME;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_COMPANYNAME_EN;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_ID;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_LATITUDE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_LINECODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_LINENAME;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_LINENAME_EN;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_LONGITUDE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_STATIONCODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_STATIONNAME;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.COLUMN_STATIONNAME_EN;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.TABLE_IRUCA_STATIONCODE;
+import static com.codebutler.farebot.card.felica.FelicaDBUtil.TABLE_STATIONCODE;
 
 final class SuicaUtil {
     private SuicaUtil() { }
@@ -149,7 +178,7 @@ final class SuicaUtil {
         int areaCode = (regionCode >> 6);
 
         try {
-            SQLiteDatabase db = FareBotApplication.getInstance().getSuicaDBUtil().openDatabase();
+            SQLiteDatabase db = FareBotApplication.getInstance().getFelicaDBUtil().openDatabase();
             Cursor cursor = db.query(TABLE_IRUCA_STATIONCODE,
                     COLUMNS_IRUCA_STATIONCODE,
                     String.format("%s = ? AND %s = ?", COLUMN_LINECODE, COLUMN_STATIONCODE),
@@ -187,7 +216,7 @@ final class SuicaUtil {
         int areaCode = (regionCode >> 6);
 
         try {
-            SQLiteDatabase db = FareBotApplication.getInstance().getSuicaDBUtil().openDatabase();
+            SQLiteDatabase db = FareBotApplication.getInstance().getFelicaDBUtil().openDatabase();
             Cursor cursor = db.query(
                     TABLE_STATIONCODE,
                     COLUMNS_STATIONCODE,

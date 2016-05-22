@@ -1,8 +1,32 @@
+/*
+ * OrcaTrip.java
+ *
+ * Copyright 2011-2013 Eric Butler <eric@codebutler.com>
+ * Copyright 2014 Kramer Campbell
+ * Copyright 2015 Sean CyberKitsune McClenaghan
+ *
+ * Thanks to:
+ * Karl Koscher <supersat@cs.washington.edu>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.codebutler.farebot.transit.orca;
 
 import android.os.Parcel;
 
-import com.codebutler.farebot.card.desfire.DesfireRecord;
+import com.codebutler.farebot.card.desfire.files.DesfireRecord;
 import com.codebutler.farebot.transit.Station;
 import com.codebutler.farebot.transit.Trip;
 import com.codebutler.farebot.util.ImmutableMapBuilder;
@@ -156,8 +180,8 @@ public class OrcaTrip extends Trip {
         return NumberFormat.getCurrencyInstance(Locale.US).format(mFare / 100.0);
     }
 
-    @Override public double getFare() {
-        return mFare;
+    @Override public boolean hasFare() {
+        return true;
     }
 
     @Override public String getBalanceString() {

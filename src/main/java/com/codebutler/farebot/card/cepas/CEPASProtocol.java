@@ -1,10 +1,9 @@
 /*
  * CEPASProtocol.java
  *
- * Copyright (C) 2011 Eric Butler
+ * Copyright 2011 Sean Cross <sean@chumby.com>
+ * Copyright 2013-2014 Eric Butler <eric@codebutler.com>
  *
- * Authors:
- * Sean Cross <sean@chumby.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,12 +23,15 @@ package com.codebutler.farebot.card.cepas;
 
 import android.nfc.tech.IsoDep;
 import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CEPASProtocol {
     private static final String TAG = "CEPASProtocol";
+    private static final byte[] CEPAS_SELECT_FILE_COMMAND = new byte[] {
+            (byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00,
+            (byte) 0x02, (byte) 0x40, (byte) 0x00 };
+
 
     /* Status codes */
     private static final byte OPERATION_OK      = (byte) 0x00;
@@ -43,6 +45,7 @@ public class CEPASProtocol {
 
     public CEPASPurse getPurse(int purseId) throws IOException {
         try {
+            sendSelectFile();
             byte[] purseBuff = sendRequest((byte) 0x32, (byte) (purseId), (byte) 0, (byte) 0, new byte[] { (byte) 0 });
             if (purseBuff != null) {
                 return new CEPASPurse(purseId, purseBuff);
@@ -89,6 +92,10 @@ public class CEPASProtocol {
             Log.w(TAG, "Error reading purse history " + purseId, ex);
             return new CEPASHistory(purseId, ex.getMessage());
         }
+    }
+
+    private byte[] sendSelectFile() throws IOException{
+        return mTagTech.transceive(CEPAS_SELECT_FILE_COMMAND);
     }
 
     private byte[] sendRequest(byte command, byte p1, byte p2, byte lc, byte[] parameters) throws CEPASException,

@@ -1,3 +1,22 @@
+/*
+ * CardType.java
+ *
+ * Copyright 2011-2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2015 Michael Farrell <micolous+git@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.codebutler.farebot.card;
 
 public enum CardType {
@@ -5,7 +24,8 @@ public enum CardType {
     MifareUltralight(1),
     MifareDesfire(2),
     CEPAS(3),
-    FeliCa(4);
+    FeliCa(4),
+    Unknown(65535);
 
     public static CardType parseValue(String value) {
         return CardType.class.getEnumConstants()[Integer.parseInt(value)];
@@ -33,6 +53,7 @@ public enum CardType {
                 return "CEPAS";
             case 4:
                 return "FeliCa";
+            case 65535:
             default:
                 return "Unknown";
         }

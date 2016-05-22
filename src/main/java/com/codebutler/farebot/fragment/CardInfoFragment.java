@@ -1,10 +1,7 @@
 /*
  * CardInfoFragment.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2012 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,14 +20,19 @@
 package com.codebutler.farebot.fragment;
 
 import android.app.ListFragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
 import com.codebutler.farebot.FareBotApplication;
 import com.codebutler.farebot.activity.AdvancedCardInfoActivity;
 import com.codebutler.farebot.activity.CardInfoActivity;
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.transit.TransitData;
+import com.codebutler.farebot.ui.ListItem;
+import com.codebutler.farebot.ui.UriListItem;
 
 import org.simpleframework.xml.Serializer;
 
@@ -49,5 +51,15 @@ public class CardInfoFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         setListAdapter(new ListItemAdapter(getActivity(), mTransitData.getInfo()));
+    }
+
+
+    @Override public void onListItemClick(ListView parent, View v, int position, long id) {
+        ListItem listItem = (ListItem) getListAdapter().getItem(position);
+
+        if (listItem instanceof UriListItem) {
+            Uri uri = ((UriListItem) listItem).getUri();
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        }
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="cards_imported">
+        <item quantity="one"><xliff:g id="count" example="1">%d</xliff:g> card imported!</item>
+        <item quantity="other"><xliff:g id="count" example="3">%d</xliff:g> cards imported!</item>
+    </plurals>
+    <plurals name="block_count">
+        <item quantity="one">%d block</item>
+        <item quantity="other">%d blocks</item>
+    </plurals>
+</resources>

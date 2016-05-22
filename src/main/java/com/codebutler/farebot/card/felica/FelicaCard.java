@@ -1,10 +1,7 @@
 /*
  * FelicaCard.java
  *
- * Copyright (C) 2011 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2011 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +23,9 @@ import android.nfc.Tag;
 import android.util.Log;
 
 import com.codebutler.farebot.card.Card;
+import com.codebutler.farebot.card.CardRawDataFragmentClass;
 import com.codebutler.farebot.card.CardType;
+import com.codebutler.farebot.fragment.FelicaCardRawDataFragment;
 import com.codebutler.farebot.transit.TransitData;
 import com.codebutler.farebot.transit.TransitIdentity;
 import com.codebutler.farebot.transit.edy.EdyTransitData;
@@ -47,6 +46,7 @@ import java.util.Date;
 import java.util.List;
 
 @Root(name="card")
+@CardRawDataFragmentClass(FelicaCardRawDataFragment.class)
 public class FelicaCard extends Card {
     @Element(name="idm") private FeliCaLib.IDm mIDm;
     @Element(name="pmm") private FeliCaLib.PMm mPMm;

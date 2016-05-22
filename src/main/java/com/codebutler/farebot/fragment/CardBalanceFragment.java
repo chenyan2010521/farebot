@@ -1,10 +1,8 @@
 /*
  * CardBalanceFragment.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2012-2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2015 Michael Farrell <micolous+git@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +49,11 @@ public class CardBalanceFragment extends Fragment {
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_card_balance, container, false);
-        ((TextView) view.findViewById(R.id.balance)).setText(mTransitData.getBalanceString());
+        String balance = mTransitData.getBalanceString();
+
+        if (balance != null) {
+            ((TextView) view.findViewById(R.id.balance)).setText(balance);
+        }
         return view;
     }
 }

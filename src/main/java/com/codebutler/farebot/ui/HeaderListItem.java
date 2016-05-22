@@ -1,10 +1,7 @@
 /*
  * HeaderListItem.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright (C) 2012 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +20,7 @@
 package com.codebutler.farebot.ui;
 
 public class HeaderListItem extends ListItem {
+    public HeaderListItem(int titleResource) { super(titleResource, null); }
     public HeaderListItem(String title) {
         super(title, null);
     }

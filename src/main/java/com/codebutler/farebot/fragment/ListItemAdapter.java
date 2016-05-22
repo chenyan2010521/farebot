@@ -1,10 +1,8 @@
 /*
  * ListItemAdapter.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2012 Eric Butler <eric@codebutler.com>
+ * Copyright 2016 Michael Farrell <micolous+git@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +30,7 @@ import android.widget.TextView;
 import com.codebutler.farebot.R;
 import com.codebutler.farebot.ui.HeaderListItem;
 import com.codebutler.farebot.ui.ListItem;
+import com.codebutler.farebot.ui.UriListItem;
 
 import java.util.List;
 
@@ -62,10 +61,11 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
             ((TextView) convertView.findViewById(android.R.id.text1)).setText(item.getText1());
             ((TextView) convertView.findViewById(android.R.id.text2)).setText(item.getText2());
         }
+
         return convertView;
     }
 
     @Override public boolean isEnabled(int position) {
-        return false;
+        return getItem(position) instanceof UriListItem;
     }
 }

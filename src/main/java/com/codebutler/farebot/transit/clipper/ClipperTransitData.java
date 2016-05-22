@@ -1,10 +1,8 @@
 /*
  * ClipperTransitData.java
  *
- * Copyright (C) 2011 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2011 "an anonymous contributor"
+ * Copyright 2011-2014 Eric Butler <eric@codebutler.com>
  *
  * Thanks to:
  * An anonymous contributor for reverse engineering Clipper data and providing
@@ -30,9 +28,10 @@ import android.os.Parcel;
 
 import com.codebutler.farebot.FareBotApplication;
 import com.codebutler.farebot.R;
+
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.desfire.DesfireCard;
-import com.codebutler.farebot.card.desfire.DesfireFile;
+import com.codebutler.farebot.card.desfire.files.DesfireFile;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;
 import com.codebutler.farebot.transit.TransitIdentity;

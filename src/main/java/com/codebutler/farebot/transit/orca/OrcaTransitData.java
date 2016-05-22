@@ -1,10 +1,8 @@
 /*
  * OrcaTransitData.java
  *
- * Copyright (C) 2011 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2011-2013 Eric Butler <eric@codebutler.com>
+ * Copyright 2015 Sean CyberKitsune McClenaghan
  *
  * Thanks to:
  * Karl Koscher <supersat@cs.washington.edu>
@@ -29,8 +27,8 @@ import android.os.Parcel;
 
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.desfire.DesfireCard;
-import com.codebutler.farebot.card.desfire.DesfireFile;
-import com.codebutler.farebot.card.desfire.RecordDesfireFile;
+import com.codebutler.farebot.card.desfire.files.DesfireFile;
+import com.codebutler.farebot.card.desfire.files.RecordDesfireFile;
 import com.codebutler.farebot.transit.Refill;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;
@@ -127,10 +125,6 @@ public class OrcaTransitData extends TransitData {
 
     @Override public Trip[] getTrips() {
         return mTrips;
-    }
-
-    @Override public Refill[] getRefills() {
-        return null;
     }
 
     @Override public Subscription[] getSubscriptions() {

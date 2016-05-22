@@ -1,10 +1,7 @@
 /*
  * CardSubscriptionsFragment.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright (C) 2012 Eric Butler <eric@codebutler.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,11 +34,9 @@ import com.codebutler.farebot.activity.CardInfoActivity;
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;
+import com.codebutler.farebot.util.Utils;
 
 import org.simpleframework.xml.Serializer;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class CardSubscriptionsFragment extends ListFragment {
     private Card mCard;
@@ -72,9 +67,8 @@ public class CardSubscriptionsFragment extends ListFragment {
 
             Subscription subscription = getItem(position);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-            String validFrom = dateFormat.format(subscription.getValidFrom());
-            String validTo   = dateFormat.format(subscription.getValidTo());
+            String validFrom = Utils.dateFormat(subscription.getValidFrom());
+            String validTo   = Utils.dateFormat(subscription.getValidTo());
 
             ((TextView) view.findViewById(R.id.company)).setText(subscription.getShortAgencyName());
             ((TextView) view.findViewById(R.id.name)).setText(subscription.getSubscriptionName());

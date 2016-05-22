@@ -45,16 +45,18 @@ import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.UnsupportedCardException;
 import com.codebutler.farebot.fragment.CardBalanceFragment;
 import com.codebutler.farebot.fragment.CardInfoFragment;
-import com.codebutler.farebot.fragment.CardRefillsFragment;
 import com.codebutler.farebot.fragment.CardSubscriptionsFragment;
 import com.codebutler.farebot.fragment.CardTripsFragment;
+import com.codebutler.farebot.fragment.UnauthorizedCardFragment;
 import com.codebutler.farebot.provider.CardsTableColumns;
 import com.codebutler.farebot.transit.TransitData;
-import com.codebutler.farebot.transit.edy.EdyTransitData;
-import com.codebutler.farebot.transit.suica.SuicaTransitData;
+import com.codebutler.farebot.transit.unknown.UnauthorizedClassicTransitData;
 import com.codebutler.farebot.ui.TabPagerAdapter;
 import com.codebutler.farebot.util.Utils;
 
+/**
+ * @author Eric Butler
+ */
 public class CardInfoActivity extends Activity {
     public static final String EXTRA_TRANSIT_DATA = "transit_data";
     public static final String SPEAK_BALANCE_EXTRA = "com.codebutler.farebot.speak_balance";
@@ -68,7 +70,8 @@ public class CardInfoActivity extends Activity {
 
     private OnInitListener mTTSInitListener = new OnInitListener() {
         public void onInit(int status) {
-            if (status == TextToSpeech.SUCCESS) {
+            String balance = mTransitData.getBalanceString();
+            if (status == TextToSpeech.SUCCESS && balance != null) {
                 mTTS.speak(getString(R.string.balance_speech, mTransitData.getBalanceString()), TextToSpeech.QUEUE_FLUSH, null);
             }
         }
@@ -139,16 +142,17 @@ public class CardInfoActivity extends Activity {
                         mCard.toXml(FareBotApplication.getInstance().getSerializer()));
                 args.putParcelable(EXTRA_TRANSIT_DATA, mTransitData);
 
-                mTabsAdapter.addTab(actionBar.newTab().setText(R.string.balance), CardBalanceFragment.class, args);
-
-                if (mTransitData.getTrips() != null) {
-                    int textId = (mTransitData instanceof SuicaTransitData) || (mTransitData instanceof EdyTransitData)
-                            ? R.string.history : R.string.trips;
-                    mTabsAdapter.addTab(actionBar.newTab().setText(textId), CardTripsFragment.class, args);
+                if (mTransitData instanceof UnauthorizedClassicTransitData) {
+                    mTabsAdapter.addTab(actionBar.newTab(), UnauthorizedCardFragment.class, args);
+                    return;
                 }
 
-                if (mTransitData.getRefills() != null) {
-                    mTabsAdapter.addTab(actionBar.newTab().setText(R.string.refills), CardRefillsFragment.class, args);
+                if (mTransitData.getBalanceString() != null) {
+                    mTabsAdapter.addTab(actionBar.newTab().setText(R.string.balance), CardBalanceFragment.class, args);
+                }
+
+                if (mTransitData.getTrips() != null || mTransitData.getRefills() != null) {
+                    mTabsAdapter.addTab(actionBar.newTab().setText(R.string.history), CardTripsFragment.class, args);
                 }
 
                 if (mTransitData.getSubscriptions() != null) {
@@ -162,6 +166,16 @@ public class CardInfoActivity extends Activity {
 
                 if (mTabsAdapter.getCount() > 1) {
                     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                }
+
+                if (mTransitData.hasUnknownStations()) {
+                    findViewById(R.id.need_stations).setVisibility(View.VISIBLE);
+                    findViewById(R.id.need_stations_button).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://micolous.github.io/farebot/unknown_stops")));
+                        }
+                    });
                 }
 
                 boolean speakBalanceRequested = getIntent().getBooleanExtra(SPEAK_BALANCE_EXTRA, false);

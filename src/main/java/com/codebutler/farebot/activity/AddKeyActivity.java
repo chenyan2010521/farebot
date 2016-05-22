@@ -57,6 +57,9 @@ import java.io.InputStream;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
+/**
+ * @author Eric Butler
+ */
 public class AddKeyActivity extends Activity {
     private static final int REQUEST_SELECT_FILE = 1;
 

@@ -1,10 +1,9 @@
 /*
  * BilheteUnicoSPTransitData.java
  *
- * Copyright (C) 2012 Eric Butler
- *
- * Authors:
- * Marcelo Liberato <mliberato@gmail.com>
+ * Copyright 2013 Marcelo Liberato <mliberato@gmail.com>
+ * Copyright 2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2015 Michael Farrell <micolous+git@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +24,7 @@ package com.codebutler.farebot.transit.bilhete_unico;
 import android.os.Parcel;
 
 import com.codebutler.farebot.card.Card;
+import com.codebutler.farebot.card.UnauthorizedException;
 import com.codebutler.farebot.card.classic.ClassicCard;
 import com.codebutler.farebot.transit.Refill;
 import com.codebutler.farebot.transit.Subscription;
@@ -67,8 +67,13 @@ public class BilheteUnicoSPTransitData extends TransitData {
     };
 
     public static boolean check(ClassicCard card) {
-        byte[] blockData = card.getSector(0).getBlock(0).getData();
-        return Arrays.equals(Arrays.copyOfRange(blockData, 8, 16), MANUFACTURER);
+        try {
+            byte[] blockData = card.getSector(0).getBlock(0).getData();
+            return Arrays.equals(Arrays.copyOfRange(blockData, 8, 16), MANUFACTURER);
+        } catch (UnauthorizedException ex) {
+            // TODO: implement a better way to handle identifying this card without a key
+            return false;
+        }
     }
 
     public static TransitIdentity parseTransitIdentity(Card card) {
@@ -107,10 +112,6 @@ public class BilheteUnicoSPTransitData extends TransitData {
     }
 
     @Override public Trip[] getTrips() {
-        return null;
-    }
-
-    @Override public Refill[] getRefills() {
         return null;
     }
 

@@ -27,7 +27,7 @@
  * http://sourceforge.jp/projects/felicalib/wiki/suica
  *
  * Some of these resources have been translated into English at:
- * https://github.com/codebutler/farebot/wiki/Suica
+ * https://github.com/micolous/farebot/wiki/Suica
  */
 
 package com.codebutler.farebot.transit.suica;
@@ -117,10 +117,6 @@ public class SuicaTransitData extends TransitData {
 
     @Override public Trip[] getTrips() {
         return mTrips;
-    }
-
-    @Override public Refill[] getRefills() {
-        return null;
     }
 
     @Override public Subscription[] getSubscriptions() {

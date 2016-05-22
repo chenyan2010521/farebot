@@ -1,10 +1,7 @@
 /*
  * HSLTransitData.java
  *
- * Copyright (C) 2013 Eric Butler
- *
- * Authors:
- * Lauri Andler <lauri.andler@gmail.com>
+ * Copyright 2013 Lauri Andler <lauri.andler@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +23,11 @@ import android.os.Parcel;
 
 import com.codebutler.farebot.FareBotApplication;
 import com.codebutler.farebot.R;
+
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.desfire.DesfireCard;
-import com.codebutler.farebot.card.desfire.DesfireFile;
-import com.codebutler.farebot.card.desfire.RecordDesfireFile;
+import com.codebutler.farebot.card.desfire.files.DesfireFile;
+import com.codebutler.farebot.card.desfire.files.RecordDesfireFile;
 import com.codebutler.farebot.transit.Refill;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;

@@ -1,10 +1,8 @@
 /*
  * CardHWDetailActivity.java
  *
- * Copyright (C) 2011 Eric Butler
- *
- * Authors:
- * Eric Butler <eric@codebutler.com>
+ * Copyright 2011-2014 Eric Butler <eric@codebutler.com>
+ * Copyright 2015-2016 Michael Farrell <micolous+git@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +38,6 @@ import com.codebutler.farebot.util.Utils;
 
 import org.simpleframework.xml.Serializer;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +91,8 @@ public class CardHWDetailFragment extends ListFragment {
             items.add(new ListItem("Purse Status", Byte.toString(purse.getPurseStatus())));
             items.add(new ListItem("Purse Balance", NumberFormat.getCurrencyInstance(Locale.US).format(purse.getPurseBalance()/100.0)));
 
-            items.add(new ListItem("Purse Creation Date", DateFormat.getDateInstance(DateFormat.LONG).format(purse.getPurseCreationDate()*1000L)));
-            items.add(new ListItem("Purse Expiry Date", DateFormat.getDateInstance(DateFormat.LONG).format(purse.getPurseExpiryDate()*1000L)));
+            items.add(new ListItem("Purse Creation Date", Utils.longDateFormat(purse.getPurseCreationDate()*1000L)));
+            items.add(new ListItem("Purse Expiry Date", Utils.longDateFormat(purse.getPurseExpiryDate()*1000L)));
             items.add(new ListItem("Autoload Amount", Integer.toString(purse.getAutoLoadAmount())));
             items.add(new ListItem("CAN", Utils.getHexString(purse.getCAN(), "<Error>")));
             items.add(new ListItem("CSN", Utils.getHexString(purse.getCSN(), "<Error>")));
@@ -119,4 +116,6 @@ public class CardHWDetailFragment extends ListFragment {
 
         setListAdapter(new ListItemAdapter(getActivity(), items));
     }
+
+
 }
