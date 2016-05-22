@@ -62,17 +62,17 @@ public class OpalTransitData extends TransitData {
     private int    mTransactionNumber;
     private int    mLastDigit;
 
-    private static GregorianCalendar OPAL_EPOCH = new GregorianCalendar(1980, Calendar.JANUARY, 1);
-    private static OpalSubscription OPAL_AUTOMATIC_TOP_UP = new OpalSubscription();
+    private static final GregorianCalendar OPAL_EPOCH = new GregorianCalendar(1980, Calendar.JANUARY, 1);
+    private static final OpalSubscription OPAL_AUTOMATIC_TOP_UP = new OpalSubscription();
+
     public static final String NAME = "Opal";
 
-
-    public static boolean check (Card card) {
+    public static boolean check(Card card) {
         return (card instanceof DesfireCard) && (((DesfireCard) card).getApplication(0x314553) != null);
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    public OpalTransitData (Parcel parcel) {
+    public OpalTransitData(Parcel parcel) {
         mSerialNumber = parcel.readInt();
         mBalance      = parcel.readInt();
         mChecksum     = parcel.readInt();
@@ -86,7 +86,7 @@ public class OpalTransitData extends TransitData {
         mLastDigit    = parcel.readInt();
     }
 
-    public OpalTransitData (Card card) {
+    public OpalTransitData(Card card) {
         DesfireCard desfireCard = (DesfireCard) card;
         byte[] data = desfireCard.getApplication(0x314553).getFile(0x07).getData();
         int iRawBalance;
@@ -113,14 +113,15 @@ public class OpalTransitData extends TransitData {
         mBalance = Utils.unsignedToTwoComplement(iRawBalance, 20);
     }
 
-    @Override public String getCardName () { return NAME; }
+    @Override public String getCardName() {
+        return NAME;
+    }
 
-
-    @Override public String getBalanceString () {
+    @Override public String getBalanceString() {
         return NumberFormat.getCurrencyInstance(Locale.US).format((double)mBalance / 100.);
     }
 
-    @Override public String getSerialNumber () {
+    @Override public String getSerialNumber() {
         return formatSerialNumber(mSerialNumber, mLastDigit);
     }
 
@@ -154,7 +155,7 @@ public class OpalTransitData extends TransitData {
         return items;
     }
 
-    public static TransitIdentity parseTransitIdentity (Card card) {
+    public static TransitIdentity parseTransitIdentity(Card card) {
         DesfireCard desfireCard = (DesfireCard) card;
         byte[] data = desfireCard.getApplication(0x314553).getFile(0x07).getData();
         data = Utils.reverseBuffer(data, 0, 5);
@@ -202,7 +203,7 @@ public class OpalTransitData extends TransitData {
     }
 
     // Unsupported elements
-    @Override public Trip[] getTrips () {
+    @Override public Trip[] getTrips() {
         return null;
     }
 }

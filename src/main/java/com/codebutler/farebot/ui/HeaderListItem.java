@@ -20,7 +20,11 @@
 package com.codebutler.farebot.ui;
 
 public class HeaderListItem extends ListItem {
-    public HeaderListItem(int titleResource) { super(titleResource, null); }
+
+    public HeaderListItem(int titleResource) {
+        super(titleResource, null);
+    }
+
     public HeaderListItem(String title) {
         super(title, null);
     }

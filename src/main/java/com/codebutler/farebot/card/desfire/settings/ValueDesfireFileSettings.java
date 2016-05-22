@@ -37,10 +37,16 @@ public class ValueDesfireFileSettings extends DesfireFileSettings {
     @Element(name="limitcredit") private int mLimitedCreditValue;
     @Element(name="limitcreditenabled") private boolean mLimitedCreditEnabled;
 
-
     private ValueDesfireFileSettings() { /* For XML Serializer */ }
 
-    public ValueDesfireFileSettings(byte fileType, byte commSetting, byte[] accessRights, int lowerLimit, int upperLimit, int limitedCreditValue, boolean limitedCreditEnabled) {
+    public ValueDesfireFileSettings(
+            byte fileType,
+            byte commSetting,
+            byte[] accessRights,
+            int lowerLimit,
+            int upperLimit,
+            int limitedCreditValue,
+            boolean limitedCreditEnabled) {
         super(fileType, commSetting, accessRights);
 
         this.mLowerLimit = lowerLimit;
@@ -72,9 +78,19 @@ public class ValueDesfireFileSettings extends DesfireFileSettings {
         mLimitedCreditEnabled = buf[0] != 0x00;
     }
 
-    public int getLowerLimit() { return mLowerLimit; }
-    public int getUpperLimit() { return mUpperLimit; }
-    public int getLimitedCreditValue() { return mLimitedCreditValue; }
-    public boolean getLimitedCreditEnabled() { return mLimitedCreditEnabled; }
+    public int getLowerLimit() {
+        return mLowerLimit;
+    }
 
+    public int getUpperLimit() {
+        return mUpperLimit;
+    }
+
+    public int getLimitedCreditValue() {
+        return mLimitedCreditValue;
+    }
+
+    public boolean getLimitedCreditEnabled() {
+        return mLimitedCreditEnabled;
+    }
 }

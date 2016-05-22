@@ -85,8 +85,8 @@ public class Station implements Parcelable {
     }
 
     public boolean hasLocation() {
-        return getLatitude() != null && !getLatitude().isEmpty() &&
-                getLongitude() != null && !getLongitude().isEmpty();
+        return getLatitude() != null && !getLatitude().isEmpty()
+                && getLongitude() != null && !getLongitude().isEmpty();
     }
 
     public int describeContents() {

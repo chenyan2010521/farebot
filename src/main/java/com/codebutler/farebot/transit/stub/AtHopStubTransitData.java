@@ -36,9 +36,11 @@ public class AtHopStubTransitData extends StubTransitData {
     }
 
     public static boolean check(Card card) {
-        return (card instanceof DesfireCard) && (((DesfireCard) card).getApplication(0x4055) != null) && (((DesfireCard) card).getApplication(0xffffff) != null);
+        return (card instanceof DesfireCard)
+                && (((DesfireCard) card).getApplication(0x4055) != null)
+                && (((DesfireCard) card).getApplication(0xffffff) != null);
     }
-    public static TransitIdentity parseTransitIdentity (Card card) {
+    public static TransitIdentity parseTransitIdentity(Card card) {
         return new TransitIdentity("AT HOP", null);
     }
 }

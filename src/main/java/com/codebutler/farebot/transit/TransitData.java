@@ -31,7 +31,10 @@ public abstract class TransitData implements Parcelable {
     public abstract Trip[] getTrips();
 
     @Deprecated
-    public Refill[] getRefills() { return null; }
+    public Refill[] getRefills() {
+        return null;
+    }
+
     public abstract Subscription[] getSubscriptions();
     public abstract List<ListItem> getInfo();
     public abstract String getCardName();

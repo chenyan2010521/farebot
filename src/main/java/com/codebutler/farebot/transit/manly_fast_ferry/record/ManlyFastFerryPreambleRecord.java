@@ -28,8 +28,10 @@ import com.codebutler.farebot.util.Utils;
  * Represents a "preamble" type record.
  */
 public class ManlyFastFerryPreambleRecord extends ManlyFastFerryRecord {
+
+    private static final byte[] OLD_CARD_ID = {0x00, 0x00, 0x00};
+
     private String mCardSerial;
-    static byte[] OLD_CARD_ID = {0x00, 0x00, 0x00};
 
     public static ManlyFastFerryPreambleRecord recordFromBytes(byte[] input) {
         ManlyFastFerryPreambleRecord record = new ManlyFastFerryPreambleRecord();
@@ -54,6 +56,7 @@ public class ManlyFastFerryPreambleRecord extends ManlyFastFerryRecord {
      * Returns the card serial number. Returns null on old cards.
      *
      */
-    public String getCardSerial() { return mCardSerial; }
-
+    public String getCardSerial() {
+        return mCardSerial;
+    }
 }

@@ -32,7 +32,7 @@ public class ManlyFastFerryMetadataRecord extends ManlyFastFerryRegularRecord {
     private String mCardSerial;
     private GregorianCalendar mEpochDate;
 
-    private static GregorianCalendar MANLY_BASE_EPOCH = new GregorianCalendar(2000, Calendar.JANUARY, 1);
+    private static final GregorianCalendar MANLY_BASE_EPOCH = new GregorianCalendar(2000, Calendar.JANUARY, 1);
 
     public static ManlyFastFerryMetadataRecord recordFromBytes(byte[] input) {
         assert input[0] == 0x02;
@@ -51,8 +51,13 @@ public class ManlyFastFerryMetadataRecord extends ManlyFastFerryRegularRecord {
         return record;
     }
 
-    protected ManlyFastFerryMetadataRecord() {}
+    protected ManlyFastFerryMetadataRecord() { }
 
-    public String getCardSerial() { return mCardSerial; }
-    public GregorianCalendar getEpochDate() { return mEpochDate; }
+    public String getCardSerial() {
+        return mCardSerial;
+    }
+
+    public GregorianCalendar getEpochDate() {
+        return mEpochDate;
+    }
 }

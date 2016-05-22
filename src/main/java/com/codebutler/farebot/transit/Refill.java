@@ -22,7 +22,6 @@
 
 package com.codebutler.farebot.transit;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
 /**

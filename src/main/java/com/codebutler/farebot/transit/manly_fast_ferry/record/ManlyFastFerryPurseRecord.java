@@ -81,9 +81,19 @@ public class ManlyFastFerryPurseRecord extends ManlyFastFerryRegularRecord imple
         parcel.writeInt(mTransactionValue);
     }
 
-    public int getDay() { return mDay; }
-    public int getMinute() { return mMinute; }
-    public int getTransactionValue() { return mTransactionValue; }
-    public boolean getIsCredit() { return mIsCredit; }
+    public int getDay() {
+        return mDay;
+    }
 
+    public int getMinute() {
+        return mMinute;
+    }
+
+    public int getTransactionValue() {
+        return mTransactionValue;
+    }
+
+    public boolean getIsCredit() {
+        return mIsCredit;
+    }
 }

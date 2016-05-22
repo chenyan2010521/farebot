@@ -26,7 +26,6 @@ import android.os.Parcel;
 import com.codebutler.farebot.card.Card;
 import com.codebutler.farebot.card.UnauthorizedException;
 import com.codebutler.farebot.card.classic.ClassicCard;
-import com.codebutler.farebot.transit.Refill;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;
 import com.codebutler.farebot.transit.TransitIdentity;

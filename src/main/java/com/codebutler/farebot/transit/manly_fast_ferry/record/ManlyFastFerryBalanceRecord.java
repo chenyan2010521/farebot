@@ -48,7 +48,10 @@ public class ManlyFastFerryBalanceRecord extends ManlyFastFerryRecord implements
     public int getBalance() {
         return mBalance;
     }
-    public int getVersion() { return mVersion; }
+
+    public int getVersion() {
+        return mVersion;
+    }
 
     @Override
     public int compareTo(ManlyFastFerryBalanceRecord rhs) {

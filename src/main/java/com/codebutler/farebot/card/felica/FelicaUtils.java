@@ -8,6 +8,8 @@ import net.kazzz.felica.lib.FeliCaLib;
  */
 public final class FelicaUtils {
 
+    private FelicaUtils() { }
+
     /**
      * Translates the System name to something human readable.
      *

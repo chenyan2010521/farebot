@@ -22,7 +22,6 @@ package com.codebutler.farebot.transit.seq_go.record;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.codebutler.farebot.transit.Trip;
 import com.codebutler.farebot.transit.seq_go.SeqGoUtil;
 import com.codebutler.farebot.util.Utils;
 

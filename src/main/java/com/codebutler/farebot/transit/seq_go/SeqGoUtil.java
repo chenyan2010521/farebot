@@ -35,6 +35,9 @@ import java.util.GregorianCalendar;
  * @author Michael Farrell
  */
 public final class SeqGoUtil {
+
+    private SeqGoUtil() { }
+
     private static final String TAG = "SeqGoUtil";
 
     /**

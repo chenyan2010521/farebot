@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 final class OpalData {
+
+    private OpalData() { }
+
     static final int VEHICLE_RAIL = 0x00;
     static final int VEHICLE_FERRY_LR = 0x01; // also Light Rail
     static final int VEHICLE_BUS = 0x02;

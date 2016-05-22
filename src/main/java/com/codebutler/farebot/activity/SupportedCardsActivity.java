@@ -274,8 +274,12 @@ public class SupportedCardsActivity extends Activity {
          * incomplete / incorrect data.
          * @return true if this is a beta version of the card decoder.
          */
-        public boolean getPreview() { return mPreview; }
+        public boolean getPreview() {
+            return mPreview;
+        }
 
-        public int getResourceExtraNote() { return mResourceExtraNote; }
+        public int getResourceExtraNote() {
+            return mResourceExtraNote;
+        }
     }
 }

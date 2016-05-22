@@ -163,7 +163,8 @@ public class FelicaCardRawDataFragment extends ExpandableListFragment {
             FelicaSystem system = mCard.getSystems().get(groupPosition);
             FelicaService service = system.getServices().get(childPosition);
 
-            textView1.setText(String.format("Service: 0x%s (%s)", Integer.toHexString(service.getServiceCode()), FelicaUtils.getFriendlyServiceName(system.getCode(), service.getServiceCode())));
+            textView1.setText(String.format("Service: 0x%s (%s)", Integer.toHexString(service.getServiceCode()),
+                    FelicaUtils.getFriendlyServiceName(system.getCode(), service.getServiceCode())));
             textView2.setText(Utils.localizePlural(R.plurals.block_count, service.getBlocks().size(), service.getBlocks().size()));
 
             return view;

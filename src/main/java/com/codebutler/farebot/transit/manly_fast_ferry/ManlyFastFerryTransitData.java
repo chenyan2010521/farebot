@@ -108,7 +108,7 @@ public class ManlyFastFerryTransitData extends TransitData {
 
     // Parcel
     @SuppressWarnings("UnusedDeclaration")
-    public ManlyFastFerryTransitData (Parcel parcel) {
+    public ManlyFastFerryTransitData(Parcel parcel) {
         mSerialNumber = parcel.readString();
         mEpochDate = new GregorianCalendar();
         mEpochDate.setTimeInMillis(parcel.readLong());
@@ -196,7 +196,7 @@ public class ManlyFastFerryTransitData extends TransitData {
     }
 
     // Structures
-    @Override public String getSerialNumber () {
+    @Override public String getSerialNumber() {
         return mSerialNumber;
     }
 

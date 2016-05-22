@@ -101,9 +101,9 @@ public class CardTripsFragment extends ListFragment {
 
     @Override public void onListItemClick(ListView l, View v, int position, long id) {
         Trip trip = (Trip) getListAdapter().getItem(position);
-        if (trip == null || !(
-                (trip.getStartStation() != null && trip.getStartStation().hasLocation()) ||
-                (trip.getEndStation() != null && trip.getEndStation().hasLocation()))) {
+        if (trip == null
+                || !((trip.getStartStation() != null && trip.getStartStation().hasLocation())
+                || (trip.getEndStation() != null && trip.getEndStation().hasLocation()))) {
             return;
         }
 
@@ -214,9 +214,8 @@ public class CardTripsFragment extends ListFragment {
             if (trip == null) {
                 return false;
             }
-
-            return (trip.getStartStation() != null && trip.getStartStation().hasLocation()) ||
-                    (trip.getEndStation() != null && trip.getEndStation().hasLocation());
+            return (trip.getStartStation() != null && trip.getStartStation().hasLocation())
+                    || (trip.getEndStation() != null && trip.getEndStation().hasLocation());
         }
 
         private boolean isFirstInSection(int position) {

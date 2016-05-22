@@ -30,6 +30,9 @@ import java.util.Map;
  * Constants used in Go card
  */
 public final class SeqGoData {
+
+    private SeqGoData() { }
+
     public static final int VEHICLE_FARE_MACHINE = 1;
     public static final int VEHICLE_BUS = 4;
     public static final int VEHICLE_RAIL = 5;

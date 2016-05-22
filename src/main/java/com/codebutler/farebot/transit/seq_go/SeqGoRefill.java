@@ -52,9 +52,9 @@ public class SeqGoRefill extends Refill {
 
     @Override
     public String getShortAgencyName() {
-        return Utils.localizeString(mTopup.getAutomatic() ?
-                R.string.seqgo_refill_automatic :
-                R.string.seqgo_refill_manual);
+        return Utils.localizeString(mTopup.getAutomatic()
+                ? R.string.seqgo_refill_automatic
+                : R.string.seqgo_refill_manual);
     }
 
     @Override

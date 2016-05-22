@@ -37,7 +37,6 @@ import android.os.Parcel;
 import com.codebutler.farebot.card.felica.FelicaBlock;
 import com.codebutler.farebot.card.felica.FelicaCard;
 import com.codebutler.farebot.card.felica.FelicaService;
-import com.codebutler.farebot.transit.Refill;
 import com.codebutler.farebot.transit.Subscription;
 import com.codebutler.farebot.transit.TransitData;
 import com.codebutler.farebot.transit.TransitIdentity;

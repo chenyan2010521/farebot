@@ -48,7 +48,7 @@ public class DesfireFileSettingsConverter implements Converter<DesfireFileSettin
             if (node == null) {
                 break;
             }
-            
+
             String value = node.getValue();
 
             if (value != null) {

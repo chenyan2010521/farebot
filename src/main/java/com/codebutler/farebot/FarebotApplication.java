@@ -137,7 +137,9 @@ public class FareBotApplication extends Application {
         return mSerializer;
     }
 
-    public boolean getMifareClassicSupport() { return mMifareClassicSupport; }
+    public boolean getMifareClassicSupport() {
+        return mMifareClassicSupport;
+    }
 
     @Override public void onCreate() {
         super.onCreate();

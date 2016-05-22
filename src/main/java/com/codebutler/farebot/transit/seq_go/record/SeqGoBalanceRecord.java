@@ -52,7 +52,10 @@ public class SeqGoBalanceRecord extends SeqGoRecord implements Comparable<SeqGoB
     public int getBalance() {
         return mBalance;
     }
-    public int getVersion() { return mVersion; }
+
+    public int getVersion() {
+        return mVersion;
+    }
 
     @Override
     public int compareTo(SeqGoBalanceRecord rhs) {

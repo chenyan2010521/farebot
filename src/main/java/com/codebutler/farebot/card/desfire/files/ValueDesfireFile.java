@@ -43,7 +43,8 @@ public class ValueDesfireFile extends DesfireFile {
 
     }
 
-    public int getValue() { return mValue; }
-
+    public int getValue() {
+        return mValue;
+    }
 }
 

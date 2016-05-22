@@ -41,19 +41,19 @@ public class MykiTransitData extends StubTransitData {
     private long   mSerialNumber1;
     private long   mSerialNumber2;
 
-    public static boolean check (Card card) {
-        return (card instanceof DesfireCard) &&
-                (((DesfireCard) card).getApplication(4594) != null) &&
-                (((DesfireCard) card).getApplication(15732978) != null);
+    public static boolean check(Card card) {
+        return (card instanceof DesfireCard)
+                && (((DesfireCard) card).getApplication(4594) != null)
+                && (((DesfireCard) card).getApplication(15732978) != null);
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    public MykiTransitData (Parcel parcel) {
+    public MykiTransitData(Parcel parcel) {
         mSerialNumber1 = parcel.readLong();
         mSerialNumber2 = parcel.readLong();
     }
 
-    public MykiTransitData (Card card) {
+    public MykiTransitData(Card card) {
         DesfireCard desfireCard = (DesfireCard) card;
         byte[] metadata = desfireCard.getApplication(4594).getFile(15).getData();
         metadata = Utils.reverseBuffer(metadata, 0, 16);
@@ -66,11 +66,11 @@ public class MykiTransitData extends StubTransitData {
         }
     }
 
-    @Override public String getCardName () {
+    @Override public String getCardName() {
         return NAME;
     }
 
-    @Override public String getSerialNumber () {
+    @Override public String getSerialNumber() {
         return formatSerialNumber(mSerialNumber1, mSerialNumber2);
     }
 
@@ -79,7 +79,7 @@ public class MykiTransitData extends StubTransitData {
         return formattedSerial + Utils.calculateLuhn(formattedSerial);
     }
 
-    public static TransitIdentity parseTransitIdentity (Card card) {
+    public static TransitIdentity parseTransitIdentity(Card card) {
         DesfireCard desfireCard = (DesfireCard) card;
         byte[] data = desfireCard.getApplication(4594).getFile(15).getData();
         data = Utils.reverseBuffer(data, 0, 16);
